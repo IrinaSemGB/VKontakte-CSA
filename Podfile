@@ -9,6 +9,7 @@ target 'VKontakte-CSA' do
 
   pod 'Alamofire'
   pod 'SwiftyJSON'
+  pod 'RealmSwift'
 
   # Pods for VKontakte-CSA
 

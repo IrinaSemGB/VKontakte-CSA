@@ -24,5 +24,17 @@ class FriendTableViewCell: UITableViewCell {
         } else {
             self.onlineImage?.image = UIImage(systemName: "hand.raised")
         }
+        
+        if let photoURL = URL(string: friend.photo) {
+            DispatchQueue.main.async {
+                let data = try? Data(contentsOf: photoURL)
+                if let data = data {
+                    let photo = UIImage(data: data)
+                    DispatchQueue.main.async {
+                        self.photoFriendImage?.image = photo
+                    }
+                }
+            }
+        }
     }
 }

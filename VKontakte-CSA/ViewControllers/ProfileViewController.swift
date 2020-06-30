@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import RealmSwift
 
 
 class ProfileViewController: UIViewController {
@@ -23,47 +24,39 @@ class ProfileViewController: UIViewController {
     @IBOutlet private weak var locationLabel: UILabel?
     
     
-    var user = UserResponse()
+    let vkService = VKService()
+    var user: [User] = []
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        self.updateUser()
-    }
-    
-    
-    func updateUser(){
-        
-        let session = URLSession.shared
-        let url = URL(string: "https://api.vk.com/method/users.get?user_ids=\(Session.instance.userID)&fields=city,bdate,photo_200,status&access_token=\(Session.instance.token)&v=5.110")!
-        
-        let task = session.dataTask(with: url) { (data, response, error) in
-            guard error == nil else {
-                print(error as Any)
-                return
-            }
-            
-            do {
-                self.user = try JSONDecoder().decode(UserResponse.self, from: data!)
-                print(self.user)
-                DispatchQueue.main.async {
-                    self.updateView()
-                }
-            } catch {
-                print(error)
-            }
+        self.vkService.loadUser { [weak self] users in
+            self?.user = users
+            self?.updateView()
         }
-        task.resume()
     }
     
     
     func updateView() {
-        let user = self.user.response[0]
         
-        self.nameLabel?.text = user.first_name + " " + user.last_name
+        let user = self.user[0]
+        
+        self.nameLabel?.text = user.name + " " + user.lastName
         self.statusLabel?.text = user.status
-        self.bdLabel?.text = user.bdate
-        self.locationLabel?.text = user.city.title
+        self.bdLabel?.text = user.birthDay
+        self.locationLabel?.text = user.city
+        
+        if let photoURL = URL(string: user.photo) {
+            DispatchQueue.main.async {
+                let data = try? Data(contentsOf: photoURL)
+                if let data = data {
+                    let photo = UIImage(data: data)
+                    DispatchQueue.main.async {
+                        self.photoImageView?.image = photo
+                    }
+                }
+            }
+        }
     }
 }

@@ -8,13 +8,14 @@
 
 import Foundation
 import SwiftyJSON
+import RealmSwift
 
-class Friend  {
+class Friend: Object  {
     
-    var firstName = ""
-    var lastName = ""
-    var photo = ""
-    var online = 0
+    @objc dynamic var firstName = ""
+    @objc dynamic var lastName = ""
+    @objc dynamic var photo = ""
+    @objc dynamic var online = 0
     
     required convenience init(json: JSON) {
         self.init()

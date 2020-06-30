@@ -7,23 +7,32 @@
 //
 
 import Foundation
+import SwiftyJSON
+import RealmSwift
 
-class User: Codable {
+class User: Object {
     
-    var id: Int
-    var first_name: String
-    var last_name: String
-    var bdate: String
-    var status: String
-    var photo_200: String
-    var city: City
+    @objc dynamic var id: Int = 0
+    @objc dynamic var name: String = ""
+    @objc dynamic var lastName: String  = ""
+    @objc dynamic var birthDay: String  = ""
+    @objc dynamic var status: String  = ""
+    @objc dynamic var photo: String  = ""
+    @objc dynamic var city: String  = ""
+    
+    required convenience init(json: JSON) {
+        self.init()
+        
+        self.id = json["id"].intValue
+        self.name = json["first_name"].stringValue
+        self.lastName = json["last_name"].stringValue
+        self.birthDay = json["bdate"].stringValue
+        self.status = json["status"].stringValue
+        self.photo = json["photo_200"].stringValue
+        self.city = json["city"]["title"].stringValue
+    }
 }
 
-class City: Codable {
-    var id: Int
-    var title: String
-}
 
-class UserResponse: Codable {
-    var response: [User] = []
-}
+
+

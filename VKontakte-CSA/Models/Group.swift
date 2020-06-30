@@ -8,12 +8,13 @@
 
 import Foundation
 import SwiftyJSON
+import RealmSwift
 
-class Group {
+class Group: Object {
     
-    var name = ""
-    var photo = ""
-    var screenName = ""
+    @objc dynamic var name = ""
+    @objc dynamic var photo = ""
+    @objc dynamic var screenName = ""
     
     required convenience init(json: JSON) {
         self.init()
