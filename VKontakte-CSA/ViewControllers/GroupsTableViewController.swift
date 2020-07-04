@@ -7,21 +7,36 @@
 //
 
 import UIKit
+import RealmSwift
 
 class GroupsTableViewController: UITableViewController {
     
     let vkService = VKService()
     var groups: [Group] = []
+    var id = 6492
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.vkService.loadGroups(id: 6492) { [weak self] groups in
+        self.vkService.loadGroups(id: id) { [weak self] groups in
             
-            self?.groups = groups
+            self?.loadGroupsFromRealm()
             self?.tableView.reloadData()
         }
     }
+    
+    
+    func loadGroupsFromRealm() {
+        
+        do {
+            let realm = try Realm()
+            let groups = realm.objects(Group.self).filter("id == %@", self.id)
+            self.groups = Array(groups)
+        } catch {
+            print(error)
+        }
+    }
+    
 
     // MARK: - Table view data source
 

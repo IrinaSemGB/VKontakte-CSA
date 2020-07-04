@@ -7,18 +7,30 @@
 //
 
 import UIKit
+import RealmSwift
 
 class FriendsTableViewController: UITableViewController {
     
     let vkService = VKService()
     var friends: [Friend] = []
+    var id = 6492
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.vkService.loadFriends(id: 6492) { [weak self] friends in
-            self?.friends = friends
+        self.vkService.loadFriends(id: id) { [weak self] friends in
+            self?.loadFriendsFromRealm()
             self?.tableView.reloadData()
+        }
+    }
+    
+    func loadFriendsFromRealm() {
+        do {
+            let realm = try Realm()
+            let friends = realm.objects(Friend.self).filter("id == %@", self.id)
+            self.friends = Array(friends)
+        } catch {
+            print(error)
         }
     }
 

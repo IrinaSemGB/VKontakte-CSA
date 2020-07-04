@@ -12,6 +12,7 @@ import RealmSwift
 
 class Group: Object {
     
+    @objc dynamic var id = 0
     @objc dynamic var name = ""
     @objc dynamic var photo = ""
     @objc dynamic var screenName = ""
@@ -19,6 +20,7 @@ class Group: Object {
     required convenience init(json: JSON) {
         self.init()
         
+        self.id = json["id"].intValue
         self.name = json["name"].stringValue
         self.photo = json["photo_200"].stringValue
         self.screenName = json["screen_name"].stringValue

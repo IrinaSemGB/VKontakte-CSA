@@ -21,7 +21,7 @@ class GroupTableViewCell: UITableViewCell {
         self.groupScreennameLabel?.text = group.screenName
         
         if let photoURL = URL(string: group.photo) {
-            DispatchQueue.main.async {
+            DispatchQueue.global().async {
                 let data = try? Data(contentsOf: photoURL)
                 if let data = data {
                     let photo = UIImage(data: data)

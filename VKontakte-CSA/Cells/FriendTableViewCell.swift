@@ -26,7 +26,7 @@ class FriendTableViewCell: UITableViewCell {
         }
         
         if let photoURL = URL(string: friend.photo) {
-            DispatchQueue.main.async {
+            DispatchQueue.global().async {
                 let data = try? Data(contentsOf: photoURL)
                 if let data = data {
                     let photo = UIImage(data: data)

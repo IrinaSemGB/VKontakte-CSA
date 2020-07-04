@@ -20,14 +20,16 @@ class VKService {
     
     // MARK: - USER
     
-    func saveUser(_ user: [User]) {
+    func saveUser(_ user: [User], id: Int) {
         
         do {
-            
             let realm = try Realm()
+            let oldUsers = realm.objects(User.self).filter("id == %@", id)
             realm.beginWrite()
+            realm.delete(oldUsers)
             realm.add(user)
             try realm.commitWrite()
+            print(realm.configuration.fileURL as Any)
         } catch {
             print(error)
         }
@@ -35,7 +37,7 @@ class VKService {
     
 //    URL(string: "https://api.vk.com/method/users.get?user_ids=\(Session.instance.userID)&fields=city,bdate,photo_200,status&access_token=\(Session.instance.token)&v=5.110")!
     
-    public func loadUser(completion: @escaping ([User]) -> Void) {
+    public func loadUser(id: Int, completion: @escaping ([User]) -> Void) {
         
         let path = "/method/users.get"
         
@@ -55,7 +57,8 @@ class VKService {
             case .success(let value):
                 let json = JSON(value)
                 let user = json["response"].arrayValue.map { User(json: $0) }
-                self.saveUser(user)
+                user.forEach { $0.id = id }
+                self.saveUser(user, id: id)
                 completion(user)
                 
             case .failure(let error):
@@ -67,14 +70,16 @@ class VKService {
     
     // MARK: - FRIENDS
     
-    func saveFriends(_ friends: [Friend]) {
+    func saveFriends(_ friends: [Friend], id: Int) {
         
         do {
-            
             let realm = try Realm()
+            let oldFriends = realm.objects(Friend.self).filter("id == %@", id)
             realm.beginWrite()
+            realm.delete(oldFriends)
             realm.add(friends)
             try realm.commitWrite()
+            print(realm.configuration.fileURL as Any)
         } catch {
             print(error)
         }
@@ -105,7 +110,8 @@ class VKService {
             case .success(let value):
                 let json = JSON(value)
                 let friends = json["response"]["items"].arrayValue.map { Friend(json: $0) }
-                self.saveFriends(friends)
+                friends.forEach { $0.id = id }
+                self.saveFriends(friends, id: id)
                 completion(friends)
             
             case .failure(let error):
@@ -117,13 +123,16 @@ class VKService {
     
         // MARK: - GROUPS
     
-    func saveGroups(_ groups: [Group]) {
+    func saveGroups(_ groups: [Group], id: Int) {
         
         do {
             let realm = try Realm()
+            let oldGroups = realm.objects(Group.self).filter("id == %@", id)
             realm.beginWrite()
+            realm.delete(oldGroups)
             realm.add(groups)
             try realm.commitWrite()
+            print(realm.configuration.fileURL as Any)
         } catch {
             print(error)
         }
@@ -151,7 +160,8 @@ class VKService {
             case .success(let value):
                 let json = JSON(value)
                 let groups = json["response"]["items"].arrayValue.map { Group(json: $0) }
-                self.saveGroups(groups)
+                groups.forEach { $0.id = id }
+                self.saveGroups(groups, id: id)
                 completion(groups)
             
             case .failure(let error):

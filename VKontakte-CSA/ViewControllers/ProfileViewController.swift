@@ -26,14 +26,27 @@ class ProfileViewController: UIViewController {
     
     let vkService = VKService()
     var user: [User] = []
+    var id = Session.instance.userID
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        self.vkService.loadUser { [weak self] users in
-            self?.user = users
+        self.vkService.loadUser(id: id) { [weak self] users in
+            self?.loadUserFromRealm()
             self?.updateView()
+        }
+    }
+    
+    
+    func loadUserFromRealm() {
+        
+        do {
+            let realm = try Realm()
+            let user = realm.objects(User.self).filter("id == %@", self.id)
+            self.user = Array(user)
+        } catch {
+            print(error)
         }
     }
     
@@ -48,7 +61,7 @@ class ProfileViewController: UIViewController {
         self.locationLabel?.text = user.city
         
         if let photoURL = URL(string: user.photo) {
-            DispatchQueue.main.async {
+            DispatchQueue.global().async {
                 let data = try? Data(contentsOf: photoURL)
                 if let data = data {
                     let photo = UIImage(data: data)
