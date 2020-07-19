@@ -9,12 +9,36 @@
 import UIKit
 
 class GroupTableViewCell: UITableViewCell {
-
-    @IBOutlet weak var groupImage: UIImageView?
-    @IBOutlet weak var groupNameLabel: UILabel?
-    @IBOutlet weak var groupScreennameLabel: UILabel?
     
-    func setGroup(group: Group) {
+    
+    // MARK: - Outlets
+
+    @IBOutlet private weak var groupImage: UIImageView? {
+        didSet {
+            groupImage?.layer.cornerRadius = 10
+        }
+    }
+    
+    @IBOutlet private weak var groupNameLabel: UILabel? {
+        didSet {
+            groupNameLabel?.font = UIFont(name: "system", size: 23)
+            groupNameLabel?.adjustsFontSizeToFitWidth = true
+            groupNameLabel?.textColor = .white
+        }
+    }
+    
+    @IBOutlet private weak var groupScreennameLabel: UILabel? {
+        didSet {
+            groupScreennameLabel?.font = UIFont(name: "system", size: 16)
+            groupScreennameLabel?.adjustsFontSizeToFitWidth = true
+            groupScreennameLabel?.textColor = UIColor(red: 151/255, green: 157/255, blue: 189/255, alpha: 1)
+        }
+    }
+    
+    
+    // MARK: - setGroup
+    
+    public func setGroup(group: Group) {
         
         self.groupImage?.image = UIImage(named: group.photo)
         self.groupNameLabel?.text = group.name

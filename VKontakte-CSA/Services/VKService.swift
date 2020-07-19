@@ -11,31 +11,15 @@ import Alamofire
 import SwiftyJSON
 import RealmSwift
 
+
 class VKService {
     
-    let baseUrl = "https://api.vk.com"
-    let accessToken = Session.instance.token
-    let userID = Session.instance.userID
+    private let baseUrl = "https://api.vk.com"
+    public let accessToken = Session.instance.token
+    public let userID = Session.instance.userID
     
     
     // MARK: - USER
-    
-    func saveUser(_ user: [User], id: Int) {
-        
-        do {
-            let realm = try Realm()
-            let oldUsers = realm.objects(User.self).filter("id == %@", id)
-            realm.beginWrite()
-            realm.delete(oldUsers)
-            realm.add(user)
-            try realm.commitWrite()
-            print(realm.configuration.fileURL as Any)
-        } catch {
-            print(error)
-        }
-    }
-    
-//    URL(string: "https://api.vk.com/method/users.get?user_ids=\(Session.instance.userID)&fields=city,bdate,photo_200,status&access_token=\(Session.instance.token)&v=5.110")!
     
     public func loadUser(id: Int, completion: @escaping ([User]) -> Void) {
         
@@ -68,27 +52,25 @@ class VKService {
     }
     
     
-    // MARK: - FRIENDS
+    private func saveUser(_ user: [User], id: Int) {
+          
+          do {
+              let realm = try Realm()
+              let oldUsers = realm.objects(User.self).filter("id == %@", id)
+              realm.beginWrite()
+              realm.delete(oldUsers)
+              realm.add(user)
+              try realm.commitWrite()
+          } catch {
+              print(error)
+          }
+      }
     
-    func saveFriends(_ friends: [Friend], id: Int) {
-        
-        do {
-            let realm = try Realm()
-            let oldFriends = realm.objects(Friend.self).filter("id == %@", id)
-            realm.beginWrite()
-            realm.delete(oldFriends)
-            realm.add(friends)
-            try realm.commitWrite()
-            print(realm.configuration.fileURL as Any)
-        } catch {
-            print(error)
-        }
-    }
+    
+    // MARK: - FRIENDS
     
     
     public func loadFriends(id: Int, completion: @escaping ([Friend]) -> Void) {
-        
-// https://api.vk.com/method/friends.get?user_id=6492&order=name&fields=photo_200_orig&count=20&access_token=\(Session.instance.token)&v=5.110
         
         let path = "/method/friends.get"
         
@@ -96,7 +78,6 @@ class VKService {
             "user_id" : id,
             "order" : "name",
             "fields": "photo_200_orig",
-            "count" : "20",
             "access_token" : self.accessToken,
             "v" : "5.110"
         ]
@@ -120,25 +101,22 @@ class VKService {
         }
     }
     
-    
-        // MARK: - GROUPS
-    
-    func saveGroups(_ groups: [Group], id: Int) {
+    private func saveFriends(_ friends: [Friend], id: Int) {
         
         do {
             let realm = try Realm()
-            let oldGroups = realm.objects(Group.self).filter("id == %@", id)
+            let oldFriends = realm.objects(Friend.self).filter("id == %@", id)
             realm.beginWrite()
-            realm.delete(oldGroups)
-            realm.add(groups)
+            realm.delete(oldFriends)
+            realm.add(friends)
             try realm.commitWrite()
-            print(realm.configuration.fileURL as Any)
         } catch {
             print(error)
         }
     }
     
-// https://api.vk.com/method/groups.get?user_id=35162218&extended=1&count=10&access_token=\(Session.instance.token)&v=5.110
+    
+        // MARK: - GROUPS
     
     public func loadGroups(id: Int, completion: @escaping ([Group]) -> Void) {
         
@@ -167,6 +145,21 @@ class VKService {
             case .failure(let error):
                 print(error)
             }
+        }
+    }
+    
+    
+    private func saveGroups(_ groups: [Group], id: Int) {
+        
+        do {
+            let realm = try Realm()
+            let oldGroups = realm.objects(Group.self).filter("id == %@", id)
+            realm.beginWrite()
+            realm.delete(oldGroups)
+            realm.add(groups)
+            try realm.commitWrite()
+        } catch {
+            print(error)
         }
     }
 }

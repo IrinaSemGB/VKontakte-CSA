@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8D061D052497DBEA00B0A174 /* LoginFormController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D061D042497DBEA00B0A174 /* LoginFormController.swift */; };
+		8D1E4E2D24C35E5100B50FB3 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1E4E2C24C35E5100B50FB3 /* TabBarViewController.swift */; };
 		8D24076424A8D067005F9C28 /* FriendsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D24076324A8D067005F9C28 /* FriendsTableViewController.swift */; };
 		8D24076724A8D1F4005F9C28 /* FriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D24076624A8D1F4005F9C28 /* FriendTableViewCell.swift */; };
 		8D24076924A8D364005F9C28 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D24076824A8D364005F9C28 /* Friend.swift */; };
@@ -29,6 +30,7 @@
 /* Begin PBXFileReference section */
 		5DB20AF6F66C86B465C9FEF1 /* Pods_VKontakte_CSA.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VKontakte_CSA.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D061D042497DBEA00B0A174 /* LoginFormController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFormController.swift; sourceTree = "<group>"; };
+		8D1E4E2C24C35E5100B50FB3 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		8D24076324A8D067005F9C28 /* FriendsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTableViewController.swift; sourceTree = "<group>"; };
 		8D24076624A8D1F4005F9C28 /* FriendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTableViewCell.swift; sourceTree = "<group>"; };
 		8D24076824A8D364005F9C28 /* Friend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
@@ -65,8 +67,8 @@
 		8D24076524A8D1C5005F9C28 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				8D24076E24A904E4005F9C28 /* GroupTableViewCell.swift */,
 				8D24076624A8D1F4005F9C28 /* FriendTableViewCell.swift */,
+				8D24076E24A904E4005F9C28 /* GroupTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -109,10 +111,11 @@
 		8D609C03249F6C7D002F795F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				8D24076A24A8F7C2005F9C28 /* GroupsTableViewController.swift */,
-				8D24076324A8D067005F9C28 /* FriendsTableViewController.swift */,
-				8D609C04249F6CB4002F795F /* ProfileViewController.swift */,
 				8D061D042497DBEA00B0A174 /* LoginFormController.swift */,
+				8D609C04249F6CB4002F795F /* ProfileViewController.swift */,
+				8D24076324A8D067005F9C28 /* FriendsTableViewController.swift */,
+				8D24076A24A8F7C2005F9C28 /* GroupsTableViewController.swift */,
+				8D1E4E2C24C35E5100B50FB3 /* TabBarViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -120,9 +123,9 @@
 		8D609C06249F77CA002F795F /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				8D24076C24A8F7EE005F9C28 /* Group.swift */,
-				8D24076824A8D364005F9C28 /* Friend.swift */,
 				8D609C07249F77EA002F795F /* User.swift */,
+				8D24076824A8D364005F9C28 /* Friend.swift */,
+				8D24076C24A8F7EE005F9C28 /* Group.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -272,6 +275,7 @@
 				8D377CEB2493B714003210B9 /* Session.swift in Sources */,
 				8D377CD52493A724003210B9 /* AppDelegate.swift in Sources */,
 				8D24076D24A8F7EE005F9C28 /* Group.swift in Sources */,
+				8D1E4E2D24C35E5100B50FB3 /* TabBarViewController.swift in Sources */,
 				8D24076424A8D067005F9C28 /* FriendsTableViewController.swift in Sources */,
 				8D609C08249F77EA002F795F /* User.swift in Sources */,
 				8D609C05249F6CB4002F795F /* ProfileViewController.swift in Sources */,
@@ -435,7 +439,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "---------------.VKontakte-CSA";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -454,7 +458,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "---------------.VKontakte-CSA";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

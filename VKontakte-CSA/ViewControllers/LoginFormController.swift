@@ -12,13 +12,17 @@ import Alamofire
 
 class LoginFormController: UIViewController {
     
-    @IBOutlet weak var scroll: UIScrollView?
-    @IBOutlet weak var nextButton: UIButton?
-    @IBOutlet weak var webView: WKWebView? {
+    
+    // MARK: - Outlets
+    
+    @IBOutlet private weak var scroll: UIScrollView?
+    @IBOutlet private weak var webView: WKWebView? {
         didSet {
             webView?.navigationDelegate = self
         }
     }
+    
+    // MARK: - Life Cicle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +32,9 @@ class LoginFormController: UIViewController {
     }
     
     
-    func openVKAutorization() {
+    // API request
+    
+    private func openVKAutorization() {
         
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
@@ -50,7 +56,7 @@ class LoginFormController: UIViewController {
     
     // MARK: - Logout
 
-    func logoutVK() {
+    private func logoutVK() {
         
         let dataStore = WKWebsiteDataStore.default()
         dataStore.fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
@@ -63,11 +69,14 @@ class LoginFormController: UIViewController {
     
     // MARK: - Actions
     
-    @IBAction func nextButtonAction() {
-        print("nextButtonAction")
+    @IBAction func logoutButtomAction(segue: UIStoryboardSegue?) {
+        self.logoutVK()
+        webView?.reload()
     }
 }
 
+
+    // MARK: - WKNavigationDelegate
 
 extension LoginFormController: WKNavigationDelegate {
     
@@ -103,19 +112,5 @@ extension LoginFormController: WKNavigationDelegate {
         decisionHandler(.cancel)
     }
 }
-            
-
-            
-//            // список фото
-//            AF.request("https://api.vk.com/method/photos.get?owner_id=-1&album_id=wall&count=10&access_token=\(Session.instance.token)&v=5.110").responseJSON { (response) in
-//                print(response.value as Any)
-//            }
-            
-
-            
-            // поиск групп
-//            AF.request("https://api.vk.com/method/groups.search?q=Music&count=10&access_token=\(Session.instance.token)&v=5.110").responseJSON { (response) in
-//                print(response.value as Any)
-//            }
 
 
