@@ -8,7 +8,7 @@
 На экране профиля Вы увидете свои данные - фото, имя, статус, день рождения и местоположение; если эти данные заполнены Вами и к ним разрешен доступ
 
 На экране друзей доступен список друзей пользователя с id6492 (данный id указан в документации на сайте ВКонтакте в качестве примера API-запроса), 
-  друзья разделены по секциям, секции формируются по первой букве имени
+  друзья разделены по секциям, секции формируются по первой букве имени, друга можно удалить свайпом влево
 
 На экране сообществ доступны все группы пользователя id6492, реализована функция поиска группы по названию
 
@@ -27,7 +27,7 @@ On the profile screen, you will see your details - photo, name, status, birthday
 
 On the friends screen, a list of friends of the user with id6492 is available 
   (this identifier is indicated in the documentation on the VKontakte website as an example of an API request),
-  friends are divided into sections, sections are formed by the first letter of the name
+  friends are divided into sections, sections are formed by the first letter of the name, a friend can be removed by swiping to the left
 
 All groups of user id6492 are available on the community screen, the function of group search by name has been implemented
 
